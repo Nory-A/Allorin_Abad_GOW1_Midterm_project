@@ -32,7 +32,7 @@ Spelling suggestions
 
 Link: https://dictionaryapi.com/products/api-collegiate-dictionary
 
---------------------------------------------------------Manual---------------------------------------------
+----------------------------------------------Manual---------------------------------------------
 How to run the Dictionary Web Application
 
 I. Install Node.js (if not downloaded)
