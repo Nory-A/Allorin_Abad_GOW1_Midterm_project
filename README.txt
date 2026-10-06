@@ -45,6 +45,12 @@ II. Check your .env
 
     in my case my meriam webster key is in the .env file
 
+:: if .env doesn't exist create
+    API_KEY=your-merriam-webster-key
+
+    or use my key if none
+    Key (Dictionary): 4bc54b76-6f88-4764-823d-d5cc0a51fcf7
+
 III. Install the packages
     open terminal it should be on what folder your files are.
 
