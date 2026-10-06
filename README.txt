@@ -5,9 +5,9 @@
     Allorin, Mae Kyla
     Abad, Norynne
 
------------------------------------------API Description----------------------------------------------
-Meriam Webster API
+'''''API Description'''''
 
+Meriam Webster API
 Merriam-Webster's Collegiate® Dictionary with Audio
 
 API Product Description
@@ -32,7 +32,7 @@ Spelling suggestions
 
 Link: https://dictionaryapi.com/products/api-collegiate-dictionary
 
-----------------------------------------------Manual---------------------------------------------
+'''''Manual''''
 How to run the Dictionary Web Application
 
 I. Install Node.js (if not downloaded)
