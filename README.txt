@@ -66,7 +66,7 @@ It's better to let the server fetch the data so:
   The tradeoff: the app won't load any data if this server is not running.
   Always start it with "node server.js" and open http://localhost:3000
 
-----------I made it like this so my API key won't be exposed
+  I made it like this so my API key won't be exposed
 
 V. Stop the server by pressing Ctrl + C in the terminal.
 
