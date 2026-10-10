@@ -1,3 +1,34 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const wordInput = document.getElementById("wordInput");
+    const searchButton = document.getElementById("searchButton");
+    const result = document.getElementById("result");
+
+    function updateSearchButtonState() {
+        const hasText = (wordInput.value.trim().length > 0);
+        searchButton.disabled = !hasText;
+        searchButton.style.opacity = hasText ? "1" : "0.6";
+        searchButton.style.cursor = hasText ? "pointer" : "not-allowed";
+    }
+
+    wordInput.addEventListener("input", updateSearchButtonState);
+
+    searchButton.addEventListener("click", () => {
+        if (!wordInput.value.trim()) {
+            result.innerHTML = "<p>Please enter a word before searching.</p>";
+            return;
+        }
+        searchWord();
+    });
+
+    wordInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && wordInput.value.trim()) {
+            searchWord();
+        }
+    });
+
+    updateSearchButtonState();
+});
+
 function clean(text) {
     return String(text || "")
         .replace(/\{bc\}/g, ": ")
@@ -68,12 +99,11 @@ async function searchWord() {
         if (data.length === 0 || typeof data[0] === "string") {
             result.innerHTML = `
                 <h3>Word not found. Try searching a different word.</h3>
-                ${data.length ? `<p>Suggestions: ${data.map(clean).join(", ")}</p>` : ""}
+                ${data.length ? `<p class="suggestions">Suggestions: ${data.map(clean).join(", ")}</p>` : ""}
             `;
             return;
         }
 
-        // Keep only entries for this exact word (skip "not-", "nothing", etc.)
         let entries = data.filter(
             (e) => e.shortdef?.length &&
                    e.meta?.id?.split(":")[0].toLowerCase() === word.toLowerCase()
@@ -120,7 +150,3 @@ async function searchWord() {
         result.innerHTML = `<p>Network error: ${clean(error.message)}</p>`;
     }
 }
-
-document.getElementById("wordInput").addEventListener("keydown", (e) => {
-    if (e.key === "Enter") searchWord();
-});
