@@ -62,7 +62,7 @@ please ensure that this exist
 **API_KEY=your-merriam-webster-key**
 
 - or use my key if none
-**Key (Dictionary): 4bc54b76-6f88-4764-823d-d5cc0a51fcf7**
+**Key (Dictionary): 4bc54b76-6f88-4764-823d-d5cc0a51fcf7** but this is supposed to be secret but if you do not have api key use this as a back-up
 
 **III. Install the packages**
 - Open your terminal.
@@ -91,6 +91,67 @@ The tradeoff: the app won't load any data if this server is not running.
 if you want to run it again try start 
 
 - node server.js
+
+# **Other Infos**
+## **Merriam-Webster Collegiate Dictionary API**
+
+**https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${process.env.API_KEY}**
+
+- Explanation:
+1. https://www.dictionaryapi.com/api/v3/references/collegiate/json/ – The API endpoint for retrieving entries from the Merriam-Webster Collegiate Dictionary in JSON format.
+2. ${word} – The word being searched by the user.
+3. ?key= – The query parameter used to provide the API key.
+4. ${process.env.API_KEY} – Retrieves the API key from the server's environment variables, typically stored in the .env file.
+
+- Example:
+If the searched word is love, the request URL follows this pattern:
+- https://www.dictionaryapi.com/api/v3/references/collegiate/json/love?key=YOUR_API_KEY
+
+### How It Works 
+
+1. The user enters a word in the dictionary application.
+2. The server builds the API request URL using the searched word and API key.
+3. The server sends a request to Merriam-Webster.
+4. The API returns dictionary data in JSON format.
+5. The application processes the response and displays the available definitions and other information.
+
+Security note: Keep process.env.API_KEY on the server. you should not expose the actual API key in JavaScript or commit your .env file to GitHub.
+
+##  **Meriam Audio Pronunciation URL**
+The Dictionary Web Application uses the Merriam-Webster audio URL format to retrieve and play word pronunciations.
+
+An audio reference URL should be in the following form:
+**https://media.merriam-webster.com/audio/prons/[language_code]/[country_code]/[format]/[subdirectory]/[base filename].[format]**
+
+- on script.js
+return `https://media.merriam-webster.com/audio/prons/en/us/mp3/${folder}/${audio}.mp3`;
+
+**Explanation:**
+
+1. https://media.merriam-webster.com/audio/prons/ – The base URL for Merriam-Webster pronunciation audio.
+2. en – means English.
+3. us – The country code for American English.
+4. mp3 – The audio format.
+5. ${folder} – The subdirectory where the audio file is located.
+6. ${audio} – The base filename of the audio file.
+7. .mp3 – The file extension.
+
+## **Merriam-Webster Dictionary Link**
+
+**"https://www.merriam-webster.com/dictionary/${encodeURIComponent(word)}"**
+
+- https://www.merriam-webster.com/dictionary/ – The base URL for the Merriam-Webster online dictionary.
+- ${encodeURIComponent(word)} – Encodes the searched word so it can be safely included in a URL, 
+including words containing spaces or special characters.
+
+- Example:
+
+If the value of word is love, the generated URL becomes:
+- https://www.merriam-webster.com/dictionary/love
+
+This link allows users to open the corresponding Merriam-Webster dictionary page for a word. 
+The code creates the URL; it does not automatically open the page.
+
 
 
 
