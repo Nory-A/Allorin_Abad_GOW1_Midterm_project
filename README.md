@@ -10,12 +10,16 @@
 **Meriam Webster API**
     Merriam-Webster's Collegiate® Dictionary with Audio
 
-# **API Product Description**
-    America's most trusted dictionary, now more comprehensive than ever.
+## **API Product Description**
+America's most trusted dictionary, now more comprehensive than ever.
 
-    Access Merriam-Webster's flagship dictionary, featuring more than 250,000 authoritative definitions, 111,000 audio pronunciations, and over 3,500 idioms and phrases. Entries for the top 500 most frequently looked-up words (including culture, humility, sycophant) have been enhanced and expanded. Expert usage guidance includes 113,000 examples of words used in context, usage labels (for example, slang, informal, chiefly British), and 130 usage paragraphs.
+Access Merriam-Webster's flagship dictionary, featuring more than 250,000 authoritative definitions, 
+111,000 audio pronunciations, and over 3,500 idioms and phrases. Entries for the top 500 most frequently 
+looked-up words (including culture, humility, sycophant) have been enhanced and expanded. Expert usage 
+guidance includes 113,000 examples of words used in context, usage labels (for example, slang, 
+informal, chiefly British), and 130 usage paragraphs.
 
-    Recently added new words and meanings include boba, cold brew, farm-to-table, heat dome, furikake, virtualization.
+Recently added new words and meanings include boba, cold brew, farm-to-table, heat dome, furikake, virtualization.
 
 ## Data features available in this reference
 - Definitions
