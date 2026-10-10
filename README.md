@@ -30,13 +30,13 @@
 Link: https://dictionaryapi.com/products/api-collegiate-dictionary 
 
 # **APP FEATURES**
-- index.html
+index.html
 - Home
 - About Us
 - Our Team
 - Open dictionary button | for accessing the app.html 
 
-- app.html 
+app.html 
 - Search box | for input search word
 - Find Meaning button 
 
