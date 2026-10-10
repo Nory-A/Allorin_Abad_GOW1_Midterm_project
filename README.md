@@ -45,7 +45,7 @@ app.html
 - Find Meaning button 
 
 # **MANUAL** 
-**How to run the Dictionary Web Application**
+## **How to run the Dictionary Web Application**
 
 **I. Install Node.js (if not downloaded)**
 - node -v (To check if Node.js is installed, open your terminal and run)
@@ -87,6 +87,10 @@ It's better to let the server fetch the data so:
 - we made it like this so the API key won't be exposed
 
 **V. Stop the server by pressing Ctrl + C in the terminal.**
+if you want to run it again try start 
+
+- node server.js
+
 
 
 
