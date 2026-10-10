@@ -55,13 +55,13 @@ please ensure that this exist
 
 **API_KEY=your-merriam-webster-key**
 
-- Replace your-merriam-webster-key with your Merriam-Webster API key.
-- If you do not have an API key, you may use the key provided for this project:
+1. Replace your-merriam-webster-key with your Merriam-Webster API key.
+2. If you do not have an API key, you may use the key provided for this project:
 
 - if .env doesn't exist create
 **API_KEY=your-merriam-webster-key**
 
-or use my key if none
+- or use my key if none
 **Key (Dictionary): 4bc54b76-6f88-4764-823d-d5cc0a51fcf7**
 
 **III. Install the packages**
@@ -78,7 +78,7 @@ or use my key if none
 - you would see... 
     Running at http://localhost:3000
 
-- It's better to let the server fetch the data so:
+It's better to let the server fetch the data so:
 1. The API key stays in .env on the server. The browser never sees it.
 2. The browser only talks to our own server (/api/define/word) as the server talks to Merriam-Webster for us.
 
