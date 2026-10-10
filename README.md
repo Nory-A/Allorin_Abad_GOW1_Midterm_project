@@ -81,7 +81,7 @@ It's better to let the server fetch the data so:
 1. The API key stays in .env on the server. The browser never sees it.
 2. The browser only talks to our own server (/api/define/word) as the server talks to Merriam-Webster for us.
 
-- The tradeoff: the app won't load any data if this server is not running.
+The tradeoff: the app won't load any data if this server is not running.
 - that us why always start it with "node server.js" and open http://localhost:3000
 
 - we made it like this so the API key won't be exposed
