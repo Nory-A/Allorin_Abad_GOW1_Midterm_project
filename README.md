@@ -73,9 +73,10 @@ or use my key if none
     npm install express dotenv
 
 **IV. Start the server on terminal**
-    node server.js
+- node server.js
 
-    you would see... Running at http://localhost:3000
+you would see... 
+    Running at http://localhost:3000
 
 It's better to let the server fetch the data so:
 1. The API key stays in .env on the server. The browser never sees it.
