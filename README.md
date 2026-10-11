@@ -85,7 +85,8 @@ Replace `your-merriam-webster-key` with your own Merriam-Webster Collegiate Dict
 
 If you do not have an API key, obtain one from Merriam-Webster's API website:
 
-https://dictionaryapi.com/
+https://dictionaryapi.com/ or use this if no other choice, as back-up API_KEY=4bc54b76-6f88-4764-823d-d5cc0a51fcf7
+use it as last resort.....
 
 **Important:** Do not share your actual API key or upload your `.env` file to GitHub. Make sure `.env` is included in your `.gitignore` file.
 
