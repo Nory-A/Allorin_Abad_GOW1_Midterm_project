@@ -5,44 +5,53 @@
 - Allorin, Mae Kyla 
 - Abad, Norynne
 
-# **API DESCRIPTION**
+# API DESCRIPTION
 
-**Meriam Webster API**
-    Merriam-Webster's Collegiate® Dictionary with Audio
+## Merriam-Webster API
 
-## **API Product Description**
+**Merriam-Webster's Collegiate® Dictionary with Audio**
+
+### API Product Description
+
 America's most trusted dictionary, now more comprehensive than ever.
 
-Access Merriam-Webster's flagship dictionary, featuring more than 250,000 authoritative definitions, 
-111,000 audio pronunciations, and over 3,500 idioms and phrases. Entries for the top 500 most frequently 
-looked-up words (including culture, humility, sycophant) have been enhanced and expanded. Expert usage 
-guidance includes 113,000 examples of words used in context, usage labels (for example, slang, 
-informal, chiefly British), and 130 usage paragraphs.
+The Merriam-Webster Collegiate Dictionary API provides access to more than 250,000 authoritative definitions, 111,000 audio pronunciations, and over 3,500 idioms and phrases. It also includes enhanced entries for frequently searched words, examples of words used in context, usage labels, and usage paragraphs.
 
-Recently added new words and meanings include boba, cold brew, farm-to-table, heat dome, furikake, virtualization.
+Recently added words and meanings include *boba, cold brew, farm-to-table, heat dome, furikake,* and *virtualization*.
 
-## Data features available in this reference
+### Data Features Available
+
 - Definitions
 - Examples
 - Etymologies
-- Synonym and Usage paragraphs
+- Synonyms and usage paragraphs
 - Pronunciation symbols
 - Audio pronunciations
 - Illustrations
 - Spelling suggestions
 
-Link: https://dictionaryapi.com/products/api-collegiate-dictionary 
+**Official API Documentation:**  
+https://dictionaryapi.com/products/api-collegiate-dictionary
 
-# **APP FEATURES**
-index.html
-- Home
-- About Us
-- Our Team
-- Open dictionary button | for accessing the app.html 
+---
 
-app.html 
-- Search box | for input search word
-- Find Meaning button 
+# APP FEATURES
+
+## 1. `index.html` — Main Website
+
+The main page introduces the Dictionary Web Application and provides information about the project.
+
+- **Home** — Displays the main landing page.
+- **About Us** — Provides information about the application.
+- **Our Team** — Introduces the team members behind the project.
+- **Open Dictionary Button** — Navigates to `app.html`, where users can access the dictionary application.
+
+## 2. `app.html` — Dictionary Application
+
+The dictionary page allows users to search for words and view their meanings.
+
+- **Search Box** — Allows users to enter the word they want to search for.
+- **Find Meaning Button** — Sends the search request and displays the available dictionary information for the entered word.
 
 # MANUAL
 
@@ -235,8 +244,6 @@ https://www.merriam-webster.com/dictionary/love
 This link allows users to open the corresponding Merriam-Webster dictionary page. The code generates the URL; it does not automatically open the page.
 
 ---
-
-**End of Manual**
 
 # Some Functions Used in Our Dictionary Web App
 
