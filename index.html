@@ -155,7 +155,7 @@
             background: none;                   /* no button background */
             border: none;                       /* no border */
             color: #10261f;                     /* icon color */
-            font-size: 2rem;                    /* icon size */
+            font-size: 1.5rem;                  /* icon size */
         }
 
         /* ========== HOME SECTION ========== */
@@ -466,6 +466,26 @@
 
             .nav-container {
                 padding: 10px 16px;             /* compact mobile nav */
+            }
+
+            .navbar.open .dictionary-button {
+                display: flex;                  /* show CTA in mobile menu */
+                justify-content: center;        /* center the button text */
+                order: 4;                       /* place under nav links */
+                margin: 12px auto 8px;          /* center with auto margin */
+                width: auto;                    /* fit content width */
+                max-width: 90%;                 /* don't extend full width */
+            }
+
+            .dictionary-button {
+                padding: 12px 22px;             /* button padding */
+                font-size: 1.1rem;              /* button text */
+                min-height: 58px;               /* button height */
+                gap: 14px;                      /* gap between text and icon */
+            }
+
+            .dictionary-button i {
+                font-size: 1.5rem;              /* icon size */
             }
 
             .logo {
