@@ -201,7 +201,72 @@ not {wi}above{\/wi} taking undue credit	               not above taking undue cr
 }
 
 Purpose: to get example sentences from the meriam dictionary API. If the dictionary has five example 
-sentences, this function displays only the first two.
+sentences, this function displays only the first two sentences.
 
+- Example:
+Verbal illustrations vis sample in meriam documentation
 
+[
+  "sense",
+  {
+    "sn":"2 a",
+    "dt":[
+      ["text","{bc}superior to (as in rank, quality, or degree) "],
+      [
+        "vis",
+        [
+          {"t":"A sergeant is {wi}above{\/wi} a corporal."}    <-------------------- 1st example
+        ]
+      ]
+    ]
+  }
+],[
+  "sense",
+  {
+    "sn":"b",
+    "dt":[
+      ["text","{bc}out of reach of "],
+      [
+        "vis",
+        [
+          {"t":"{wi}above{\/wi} suspicion"}      <-------------------second example
+        ]
+      ]
+    ]
+  }
+],[
+  "sense",
+  {
+    "sn":"c",
+    "dt":[
+      ["text","{bc}in preference to "],
+      [
+        "vis",
+        [
+          {"t":"puts his child\u0027s needs {wi}above{\/wi} his
+          own needs"}
+        ]
+      ]
+    ]
+  }
+],[
+  "sense",
+  {
+    "sn":"d",
+    "dt":[
+      ["text","{bc}too proud or honorable to stoop to "],
+      [
+        "vis",
+        [
+          {"t":"not {wi}above{\/wi} taking undue credit"}
+        ]
+      ]
+    ]
+  }
+]
 
+- The output  should show 2 examples.
+[
+    "A sergeant is above a corporal.",
+    "above suspicion"
+]
