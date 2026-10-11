@@ -1,6 +1,6 @@
 * {
     margin: 0;                      /* remove default outer space */
-    padding: 0;                     /* remove default inner space */
+    padding: 0;                      /* remove default inner space */
     box-sizing: border-box;         /* padding counts inside the width */
 }
 html {
@@ -93,7 +93,7 @@ body {
 .home-content {
     width: min(980px, 100%);
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
 }
 
 .home-content h1 {
@@ -103,7 +103,7 @@ body {
     font-size: 4rem;
     font-weight: 1000;
     line-height: 1.08;
-    text-align: center;
+    text-align: left;
 }
 
 .home-content p {
@@ -111,8 +111,26 @@ body {
     max-width: 100%;
     color: #10261f;
     font-size: 1.4rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+#main-description {
+    margin: 0 0 50px;
+    max-width: 100%;
+    color: #10261f;
+    font-size: 1.4rem;
     text-align: center;
     font-weight: 600;
+}
+#main-heading {
+    margin: 0 0 15px;
+    padding: 5px 0;
+    color: #10261f;
+    font-size: 4rem;
+    font-weight: 1000;
+    line-height: 1.08;
+    text-align: center;
 }
 
 /* ========== SEARCH BAR ============ */
