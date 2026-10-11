@@ -41,10 +41,10 @@ https://dictionaryapi.com/products/api-collegiate-dictionary
 
 The main page introduces the Dictionary Web Application and provides information about the project.
 
-- **Home** — Displays the main landing page.
-- **About Us** — Provides information about the application.
+- **Home** — Displays the main homepage.
+- **About Us** — Provides information about the application and main goal.
 - **Our Team** — Introduces the team members behind the project.
-- **Open Dictionary Button** — Navigates to `app.html`, where users can access the dictionary application.
+- **Open Dictionary Button** — lets you navigate to `app.html`, and lets users can access the dictionary application.
 
 ## 2. `app.html` — Dictionary Application
 
