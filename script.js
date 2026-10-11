@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateSearchButtonState() {
         const hasText = (wordInput.value.trim().length > 0);
-        searchButton.disabled = !hasText;
         searchButton.style.opacity = hasText ? "1" : "0.6";
         searchButton.style.cursor = hasText ? "pointer" : "not-allowed";
     }
