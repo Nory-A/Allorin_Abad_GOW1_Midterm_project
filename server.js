@@ -5,6 +5,10 @@ const path = require("path");
 const app = express();
 app.use(express.static(path.join(__dirname)));
 
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
+
 console.log("Node version:", process.version);
 console.log("Key loaded:", process.env.API_KEY ? "yes (" + process.env.API_KEY.length + " chars)" : "NO");
 
