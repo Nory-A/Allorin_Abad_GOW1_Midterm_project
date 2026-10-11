@@ -258,3 +258,219 @@ The following are four example sentences returned in the API data:
 ```
 
 **Result:** Although the API provides four example sentences, the function returns only the first two because `limit` is set to `2`.
+
+## 3. `getAudioUrl(entry)`
+
+### Code Implementation
+
+```javascript
+function getAudioUrl(entry) {
+    const audio = entry.hwi?.prs?.[0]?.sound?.audio;
+    if (!audio) return null;
+
+    let folder;
+    if (audio.startsWith("bix")) folder = "bix";
+    else if (audio.startsWith("gg")) folder = "gg";
+    else if (/^[0-9_\W]/.test(audio)) folder = "number";
+    else folder = audio[0];
+
+    return `https://media.merriam-webster.com/audio/prons/en/us/mp3/${folder}/${audio}.mp3`;
+}
+```
+
+### Purpose
+
+its purpose is to get the audio URL for the pronunciation of a word from the Merriam-Webster Dictionary API.
+
+### Explanation
+
+- `entry.hwi?.prs?.[0]?.sound?.audio` — Gets the audio filename from the API data.
+- `if (!audio) return null` — Returns `null` if no audio filename is available.
+- `let folder` — Creates a variable to store the audio folder name.
+- `audio.startsWith("bix")` — Checks if the filename starts with `bix`.
+- `audio.startsWith("gg")` — Checks if the filename starts with `gg`.
+- `/^[0-9_\W]/.test(audio)` — Checks whether the filename starts with a number, underscore, or non-word character.
+- `folder = audio[0]` — Uses the first character of the filename as the folder name.
+- `return` — Builds and returns the complete audio URL.
+
+### Example
+
+Suppose the API returns this audio filename:
+
+```javascript
+audio = "above0001";
+```
+
+The filename starts with `a`, so the function selects the `a` folder.
+
+**Generated URL:**
+
+```text
+https://media.merriam-webster.com/audio/prons/en/us/mp3/a/above0001.mp3
+```
+
+**Result:** The function returns the URL where the pronunciation audio can be accessed.
+
+---
+
+## 4. `playAudio(url)`
+
+### Code Implementation
+
+```javascript
+function playAudio(url) {
+    new Audio(url).play();
+}
+```
+
+### Purpose
+
+Plays the pronunciation audio when the user clicks the speaker button in the dictionary web application.
+
+### Explanation
+
+- `function playAudio(url)` — Defines a function that receives the audio URL.
+- `new Audio(url)` — Creates an audio object using the provided URL.
+- `.play()` — Starts playing the audio.
+
+### Example
+
+```javascript
+playAudio("https://example.com/audio/above.mp3");
+```
+
+When this function is called with a valid audio URL, the browser attempts to play the pronunciation.
+
+**Result:** Users can listen to how a word is pronounced by clicking the speaker button.
+
+## 5. `searchWord()`
+
+### Code Implementation
+
+```javascript
+async function searchWord() {
+    const word = document.getElementById("wordInput").value.trim();
+    const result = document.getElementById("result");
+
+    if (word === "") {
+        result.innerHTML = "<p>Please enter a word, you sent an empty search.</p>";
+        return;
+    }
+
+    result.innerHTML = "<p>Searching...</p><p>Please wait while we find the definition.</p>";
+
+    try {
+        const response = await fetch(`/api/define/${encodeURIComponent(word)}`);
+        const data = await response.json();
+
+        if (!response.ok || data.error) {
+            result.innerHTML = `<p>Error (${response.status}): ${clean(data.error || "unknown")}</p>`;
+            return;
+        }
+
+        if (data.length === 0 || typeof data[0] === "string") {
+            result.innerHTML = `
+                <h3>Word not found. Try searching a different word.</h3>
+                ${data.length ? `<p class="suggestions">Suggestions: ${data.map(clean).join(", ")}</p>` : ""}
+            `;
+            return;
+        }
+
+        let entries = data.filter(
+            (e) => e.shortdef?.length &&
+                   e.meta?.id?.split(":")[0].toLowerCase() === word.toLowerCase()
+        );
+        if (entries.length === 0) entries = data.filter((e) => e.shortdef?.length);
+
+        const html = entries.map((entry, i) => {
+            const name = clean((entry.hwi?.hw || word).replace(/\*/g, ""));
+            const pos = clean(entry.fl || "");
+            const pron = clean(entry.hwi?.prs?.[0]?.mw || "");
+            const audioUrl = getAudioUrl(entry);
+            const examples = getExamples(entry);
+
+            return `
+                <div class="entry">
+                    ${entries.length > 1 ? `<div class="entry-count">${i + 1} of ${entries.length}</div>` : ""}
+                    <div class="entry-head">
+                        <h2>${name}</h2>
+                        ${pos ? `<span class="pos">${pos}</span>` : ""}
+                    </div>
+                    ${pron ? `
+                        <div class="pron">
+                            ${audioUrl ? `<button class="audio-btn" onclick="playAudio('${audioUrl}')"><i class="bi bi-volume-up"></i></button>` : ""}
+                            <span>\\${pron}\\</span>
+                        </div>` : ""}
+                    <ol class="defs">
+                        ${entry.shortdef.map((d) => `<li>${clean(d)}</li>`).join("")}
+                    </ol>
+                    ${examples.length ? `
+                        <div class="examples">
+                            <h4>Examples of ${name}</h4>
+                            ${examples.map((ex) => `<p>${ex}</p>`).join("")}
+                        </div>` : ""}
+                    <a class="more" target="_blank" href="https://www.merriam-webster.com/dictionary/${encodeURIComponent(word)}">
+                        See full entry
+                    </a>
+                </div>
+            `;
+        }).join("");
+
+        result.innerHTML = html;
+    } catch (error) {
+        console.error(error);
+        result.innerHTML = `<p>Network error: ${clean(error.message)}</p>`;
+    }
+}
+```
+
+### Purpose
+
+Searches for a word through the dictionary API and displays its definition, pronunciation, example sentences, and other information on the website.
+
+### Explanation
+
+- `async function searchWord()` — Defines an asynchronous function that can wait for data.
+- `document.getElementById("wordInput").value.trim()` — Gets the word entered by the user and removes extra spaces at the beginning and end.
+- `document.getElementById("result")` — Finds the HTML element where the results will appear.
+- `if (word === "")` — Checks whether the user entered a word. If the input is empty, it displays a message.
+- `result.innerHTML` — Updates the content displayed on the website.
+- `try...catch` — Handles errors that may occur during the search.
+- `fetch()` — Sends a request to the server to retrieve dictionary data.
+- `await response.json()` — Waits for the response and converts it into JavaScript data.
+- `response.ok || data.error` — The condition checks whether the response was unsuccessful or contains an error.
+- `data.length === 0` — Checks whether the API returned no results.
+- `data.filter()` — Selects dictionary entries that match the searched word and have definitions.
+- `getAudioUrl(entry)` — Gets the pronunciation audio URL.
+- `getExamples(entry)` — Gets example sentences.
+- `entries.map()` — Builds the HTML for each dictionary entry.
+- `join("")` — Combines the generated HTML into one string.
+- `catch (error)` — Displays a network error message if the request fails.
+
+### Example
+
+Suppose the user searches for:
+
+```text
+above
+```
+
+The function requests the definition from the server and displays the available information.
+
+**Expected result:**
+
+- **Word:** above
+- **Part of speech:** Preposition or another available word class
+- **Pronunciation:** Available pronunciation information
+- **Definitions:** Meanings of the word
+- **Examples:** Example sentences from the API
+- **Speaker button:** Plays the pronunciation when audio is available
+- **See full entry:** Opens the Merriam-Webster dictionary page
+
+If the user searches without entering a word, the website displays a message asking them to enter one.
+
+If the word cannot be found, the website displays a message and any available spelling suggestions.
+
+### Result
+
+The `searchWord()` function is the main function of our dictionary web application. It handles the search process, retrieves dictionary data, manages errors, and displays the results to the user.
