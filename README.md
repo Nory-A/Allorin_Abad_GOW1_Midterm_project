@@ -44,70 +44,136 @@ app.html
 - Search box | for input search word
 - Find Meaning button 
 
-# **MANUAL** 
-## **How to run the Dictionary Web Application**
+# MANUAL
 
-**I. Install Node.js (if not downloaded)**
-- node -v (To check if Node.js is installed, open your terminal and run)
+## How to Run the Dictionary Web Application
 
-**II. Check your .env**
-please ensure that this exist 
+### I. Install Node.js
 
-**API_KEY=your-merriam-webster-key**
+If Node.js is not installed on your computer, download it from the official website:
 
-1. Replace your-merriam-webster-key with your Merriam-Webster API key.
-2. If you do not have an API key, you may use the key provided for this project:
+https://nodejs.org/
 
-- if .env doesn't exist create
-**API_KEY=your-merriam-webster-key**
+To check if Node.js is already installed, open your terminal and run:
 
-- or use my key if none
-**Key (Dictionary): 4bc54b76-6f88-4764-823d-d5cc0a51fcf7** but this is supposed to be secret but if you do not have api key use this as a back-up
+```bash
+node -v
+```
 
-**III. Install the packages**
-- Open your terminal.
-- Navigate to the folder containing your project files.
-- Run the following commands:
+If a version number appears, Node.js is installed.
 
-    npm init -y
-    npm install express dotenv
+### II. Configure the `.env` File
 
-**IV. Start the server on terminal**
-- node server.js
+Make sure that a `.env` file exists in the root folder of your project, alongside `server.js`.
 
-- you would see... 
-    Running at http://localhost:3000
+Add the following line to the `.env` file:
 
-It's better to let the server fetch the data so:
-1. The API key stays in .env on the server. The browser never sees it.
-2. The browser only talks to our own server (/api/define/word) as the server talks to Merriam-Webster for us.
+```env
+API_KEY=your-merriam-webster-key
+```
 
-The tradeoff: the app won't load any data if this server is not running.
-- that us why always start it with "node server.js" and open http://localhost:3000
+Replace `your-merriam-webster-key` with your own Merriam-Webster Collegiate Dictionary API key.
 
-- we made it like this so the API key won't be exposed
+If you do not have an API key, obtain one from Merriam-Webster's API website:
 
-**V. Stop the server by pressing Ctrl + C in the terminal.**
-if you want to run it again try start 
+https://dictionaryapi.com/
 
-- node server.js
+**Important:** Do not share your actual API key or upload your `.env` file to GitHub. Make sure `.env` is included in your `.gitignore` file.
 
-# **Other Infos**
-## **Merriam-Webster Collegiate Dictionary API**
+### III. Install the Required Packages
 
-**https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${process.env.API_KEY}**
+1. Open your terminal.
+2. Navigate to the folder containing your project files.
+3. Run the following commands:
 
-- Explanation:
-1. https://www.dictionaryapi.com/api/v3/references/collegiate/json/ – The API endpoint for retrieving entries from the Merriam-Webster Collegiate Dictionary in JSON format.
-2. ${word} – The word being searched by the user.
-3. ?key= – The query parameter used to provide the API key.
-4. ${process.env.API_KEY} – Retrieves the API key from the server's environment variables, typically stored in the .env file.
+```bash
+npm init -y
+npm install express dotenv
+```
 
-- Example:
-If the searched word is love, the request URL follows this pattern:
-- https://www.dictionaryapi.com/api/v3/references/collegiate/json/love?key=YOUR_API_KEY
+If your project already has a `package.json` file, you can skip `npm init -y` and run:
 
-### How It Works 
+```bash
+npm install
+```
+
+### IV. Start the Server
+
+In your terminal, run:
+
+```bash
+node server.js
+```
+
+If the server starts successfully, you should see a message similar to:
+
+```text
+Running at http://localhost:3000
+```
+
+Open the following address in your browser to use the Dictionary Web Application:
+
+http://localhost:3000
+
+**Why does the server need to be running?**
+
+The application uses a backend server to communicate with the Merriam-Webster API.
+
+1. The API key is stored in the server's `.env` file.
+2. The browser sends requests to the application's own endpoint, `/api/define/word`.
+3. The server uses the API key to request dictionary data from Merriam-Webster.
+4. The server returns the data to the browser, where the application displays the results.
+
+This setup helps protect the API key from being exposed in frontend JavaScript. However, the server must be running for dictionary searches to work.
+
+### V. Stop or Restart the Server
+
+To stop the server, press:
+
+```text
+Ctrl + C
+```
+
+To run the application again, navigate to the project folder and execute:
+
+```bash
+node server.js
+```
+
+Then open http://localhost:3000 in your browser.
+
+---
+
+# Other Information
+
+## 1. Merriam-Webster Collegiate Dictionary API
+
+The application uses the Merriam-Webster Collegiate Dictionary API to retrieve word definitions and related information.
+
+**API endpoint format:**
+
+```text
+https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${process.env.API_KEY}
+```
+
+### Explanation
+
+1. `https://www.dictionaryapi.com/api/v3/references/collegiate/json/` – The API endpoint for retrieving dictionary entries in JSON format.
+2. `${word}` – The word searched for by the user.
+3. `?key=` – The query parameter used to provide the API key.
+4. `${process.env.API_KEY}` – Retrieves the API key from the server's environment variables, usually stored in the `.env` file.
+
+**Example:**
+
+If the user searches for `love`, the request follows this pattern:
+
+```text
+https://www.dictionaryapi.com/api/v3/references/collegiate/json/love?key=YOUR_API_KEY
+```
+
+Replace `YOUR_API_KEY` with a valid API key when making a real request.
+
+### How It Works
 
 1. The user enters a word in the dictionary application.
 2. The server builds the API request URL using the searched word and API key.
@@ -115,42 +181,62 @@ If the searched word is love, the request URL follows this pattern:
 4. The API returns dictionary data in JSON format.
 5. The application processes the response and displays the available definitions and other information.
 
-Security note: Keep process.env.API_KEY on the server. you should not expose the actual API key in JavaScript or commit your .env file to GitHub.
+**Security note:** Keep `process.env.API_KEY` on the server. Never expose the actual API key in frontend JavaScript or commit your `.env` file to GitHub.
 
-##  **Meriam Audio Pronunciation URL**
-The Dictionary Web Application uses the Merriam-Webster audio URL format to retrieve and play word pronunciations.
+## 2. Merriam-Webster Audio Pronunciation URL
 
-An audio reference URL should be in the following form:
-**https://media.merriam-webster.com/audio/prons/[language_code]/[country_code]/[format]/[subdirectory]/[base filename].[format]**
+The application uses Merriam-Webster's audio URL format to retrieve and play word pronunciations.
 
-- on script.js
+**Audio URL format:**
+
+```text
+https://media.merriam-webster.com/audio/prons/en/us/mp3/${folder}/${audio}.mp3
+```
+
+In `script.js`, the URL is generated using:
+
+```javascript
 return `https://media.merriam-webster.com/audio/prons/en/us/mp3/${folder}/${audio}.mp3`;
+```
 
-**Explanation:**
+### Explanation
 
-1. https://media.merriam-webster.com/audio/prons/ – The base URL for Merriam-Webster pronunciation audio.
-2. en – means English.
-3. us – The country code for American English.
-4. mp3 – The audio format.
-5. ${folder} – The subdirectory where the audio file is located.
-6. ${audio} – The base filename of the audio file.
-7. .mp3 – The file extension.
+1. `https://media.merriam-webster.com/audio/prons/` – The base URL for pronunciation audio files.
+2. `en` – The language code for English.
+3. `us` – The country code for American English.
+4. `mp3` – The audio format.
+5. `${folder}` – The subdirectory containing the audio file.
+6. `${audio}` – The audio filename provided by the API.
+7. `.mp3` – The file extension.
 
-## **Merriam-Webster Dictionary Link**
+The application uses the audio information returned by the API to construct the pronunciation URL. If an audio file is available, the user can click the speaker button to hear the pronunciation.
 
-**"https://www.merriam-webster.com/dictionary/${encodeURIComponent(word)}"**
+## 3. Merriam-Webster Dictionary Link
 
-- https://www.merriam-webster.com/dictionary/ – The base URL for the Merriam-Webster online dictionary.
-- ${encodeURIComponent(word)} – Encodes the searched word so it can be safely included in a URL, 
-including words containing spaces or special characters.
+The application also provides a link to the full Merriam-Webster dictionary entry for a searched word.
 
-- Example:
+**URL format:**
 
-If the value of word is love, the generated URL becomes:
-- https://www.merriam-webster.com/dictionary/love
+```javascript
+`https://www.merriam-webster.com/dictionary/${encodeURIComponent(word)}`
+```
 
-This link allows users to open the corresponding Merriam-Webster dictionary page for a word. 
-The code creates the URL; it does not automatically open the page.
+### Explanation
+
+1. `https://www.merriam-webster.com/dictionary/` – The base URL for the Merriam-Webster online dictionary.
+2. `${encodeURIComponent(word)}` – Encodes the searched word so it can be safely included in the URL, including words containing spaces or special characters.
+
+**Example:**
+
+If the value of `word` is `love`, the generated URL becomes:
+
+https://www.merriam-webster.com/dictionary/love
+
+This link allows users to open the corresponding Merriam-Webster dictionary page. The code generates the URL; it does not automatically open the page.
+
+---
+
+**End of Manual**
 
 # Some Functions Used in Our Dictionary Web App
 
