@@ -8,6 +8,23 @@
     <title>A.A Dictionary Homepage</title>
 
     <style>
+        /* ========== CSS ORGANIZATION GUIDE ========== 
+           1. UNIVERSAL STYLES - Global defaults
+           2. NAVBAR - Navigation styling
+           3. MENU TOGGLE - Hamburger menu (hidden on desktop)
+           4. HOME SECTION - Hero/welcome area
+           5. PROJECT SECTION - Project info cards
+           6. TEAM SECTION - Team member cards
+           7. FOOTER SECTION - Footer content
+           8. CAROUSEL SECTION - Carousel/slider
+           9. RESPONSIVE DESIGN - Media queries by screen size
+              - 1100px and below (Tablets)
+              - 820px and below (Tablets/Phones with Hamburger)
+              - 560px and below (Mobile Devices)
+              - 360px and below (Small Mobile Devices)
+        ========================================== */
+        
+        /* ========== UNIVERSAL STYLES ========== */
         * {
             margin: 0;                      /* remove default outer space */
             padding: 0;                     /* remove default inner space */
@@ -15,8 +32,8 @@
         }
 
         html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 81px;       /* same as the navbar height, so no extra gap */
+            scroll-behavior: smooth;                /* smooth scrolling animation */
+            scroll-padding-top: 81px;               /* same as the navbar height, so no extra gap */
         }
 
         #about {
@@ -60,14 +77,14 @@
         }
 
         .nav-container {
-            width: min(1600px, 100%);
-            max-width: 1920px;                  /* limit width on huge screens */
+            width: min(1600px, 100%);               /* responsive width max 1600px */
+            max-width: 1920px;                      /* limit width on huge screens */
             padding: 0 56px;                    /* side space */
             min-height: 80px;                   /* navbar height */
             display: grid;                      /* use grid layout */
             grid-template-columns: 1fr auto 1fr;   /* logo | links | button */
             align-items: center;                /* center vertically */
-            margin: 0 auto;
+            margin: 0 auto;                     /* center container */
         }
 
         .logo {
@@ -78,7 +95,7 @@
             color: #10261f;                     /* text color */
             font-size: 1.6rem;                  /* text size */
             font-weight: 600;                   /* semi-bold */
-            min-width: 0;
+            min-width: 0;                       /* allow logo to shrink */
         }
 
         .logo-icon {
@@ -87,26 +104,26 @@
             display: grid;                      /* grid to center the icon */
             place-items: center;                /* center icon both ways */
             background: #15403a;                /* dark green circle */
-            color: #e3ff5e;                     
+            color: #e3ff5e;                     /* lime green icon color */
             border-radius: 50%;                 /* makes it a circle */
             font-size: 1.6rem;                  /* icon size */
-            flex-shrink: 0;
+            flex-shrink: 0;                     /* don't shrink icon */
         }
 
         .nav-links {
             display: flex;                      /* links in a row */
             align-items: center;                /* align vertically */
             gap: 48px;                          /* space between links */
-            justify-content: center;
-            flex-wrap: wrap;
+            justify-content: center;            /* center links horizontally */
+            flex-wrap: wrap;                    /* wrap to next line if needed */
         }
 
         .nav-links a {
             position: relative;                 /* lets the underline position itself */
-            color: #10261f;                
-            text-decoration: none;           
+            color: #10261f;                     /* dark green text */
+            text-decoration: none;              /* remove underline from links */
             font-weight: 500;                   /* medium weight */
-            font-size: 1.15rem;                
+            font-size: 1.15rem;                 /* link text size */
         }
 
         .nav-links a::after { 
@@ -130,15 +147,15 @@
             align-items: center;                /* i-align vertically */
             gap: 14px;                          /* space between text ug icon */
             padding: 12px 22px;                 /* smaller button size */
-            background: #15403a;               
-            color: #fff;                      
-            text-decoration: none;              
-            font-weight: 600;                   
-            font-size: 1.1rem;                 /* smaller text */
-            border-radius: 999px;               
+            background: #15403a;                /* dark green background */
+            color: #fff;                        /* white text color */
+            text-decoration: none;              /* remove underline */
+            font-weight: 600;                   /* semi-bold text */
+            font-size: 1.1rem;                  /* smaller text */
+            border-radius: 999px;               /* rounded pill shape */
             transition: transform 0.2s ease, box-shadow 0.2s ease; /* smooth ang effect */
-            white-space: nowrap;
-            min-height: 58px;
+            white-space: nowrap;                /* keep button text on one line */
+            min-height: 58px;                   /* minimum button height */
         }
 
         .dictionary-button i {
@@ -150,6 +167,8 @@
             box-shadow: 0 8px 20px rgba(21, 64, 58, 0.3);   /* soft shadow */
         }
 
+
+        /* ========== MENU TOGGLE (Hamburger) ========== */
         .menu-toggle { /* hidden on desktop mao ning three dashes */
             display: none;                      /* hidden on desktop */
             background: none;                   /* no button background */
@@ -158,12 +177,13 @@
             font-size: 1.5rem;                  /* icon size */
         }
 
+
         /* ========== HOME SECTION ========== */
         .home-section {
-            position: relative;                  /* reference point sa elements */
-            background-color: #a7c391;
-            display: flex;                      
-            align-items: center;                
+            position: relative;                 /* reference point sa elements */
+            background-color: #a7c391;          /* light green background */
+            display: flex;                      /* flexbox layout */
+            align-items: center;                /* center items vertically */
             justify-content: center;            /* center content horizontally */
             min-height: 100vh;                  /* full screen height */
             height: calc(100vh - 82px);          /* keeps the home section from overflowing */
@@ -176,9 +196,9 @@
         }
 
         .home-content {
-            position: relative;                
-            z-index: 2;                         
-            width: 100%;                        
+            position: relative;                 /* allow positioning */
+            z-index: 2;                         /* layer above background */
+            width: 100%;                        /* full width */
             max-width: 1920px;                  /* limit on huge screens */
             margin: 0 auto;                     /* center it */
             display: grid;                      /* two-column grid */
@@ -195,7 +215,7 @@
             line-height: 0.98;                  /* tight lines */
             margin-top: -30px;                  /* move headline a little upward */
             margin-bottom: 56px;                /* space below */
-            word-break: break-word;
+            word-break: break-word;             /* allow long words to break */
         }
 
         .home-content p {
@@ -230,7 +250,7 @@
             background: #15403a;                /* dark green */
             color: #fff;                        /* white text */
             transition: transform 0.2s ease, box-shadow 0.2s ease;  /* smooth hover */
-            white-space: nowrap;
+            white-space: nowrap;                /* keep text on one line */
         }
 
         .home-buttons a i {
@@ -243,7 +263,7 @@
         }
 
         .home-buttons a.outline {
-            background: transparent;              /* no fill */
+            background: transparent;           /* no fill */
             color: #10261f;                     /* dark text */
             border: 1px solid #15403a;          /* dark green border */
         }
@@ -256,12 +276,13 @@
             transform: translateY(-2px);        /* lift up on hover */
         }
 
+        /* ========== PROJECT SECTION ========== */
         .project-section {
             padding: 60px clamp(16px, 3vw, 40px);  /* space above and below */
             background-image: url('Images/Image.png');  /* image.png background */
             background-size: cover;             /* cover the entire section */
             background-position: center;        /* center the background */
-            background-repeat: no-repeat;
+            background-repeat: no-repeat;       /* don't repeat background */
         }
 
         .project-content > h2,
@@ -283,8 +304,8 @@
         .project-info h1 {
             font-size: 1.6rem;                  /* card title size */
             margin-bottom: 12px;                /* space below */
-            display: flex;
-            align-items: center;
+            display: flex;                      /* flex layout for icon and text */
+            align-items: center;                /* align icon and text vertically */
             gap: 10px;                          /* space between icon and text */
         }
 
@@ -301,14 +322,14 @@
         .team-section {
             background-image: url('Images/People.png');     /* people.png background */
             padding: 70px clamp(16px, 3vw, 40px);  /* space above and below */
-            text-align: center;                 /* center the text */
-            background-color: #f5f3ec;          /* fallback color */
+            text-align: center;                    /* center the text */
+            background-color: #f5f3ec;           /* fallback color */
         }
 
         .team-content h1 {
             font-size: clamp(1.8rem, 4vw, 2.4rem);  /* title size */
             margin-bottom: 16px;                /* space below */
-            margin-top: -15px;
+            margin-top: -15px;                  /* move title upward */
         }
 
         .team-description {
@@ -325,7 +346,7 @@
         }
 
         .team-member {
-            background: #f5f3ec;                   /* cream card */
+            background: #f5f3ec;              /* cream card */
             padding: 28px;                      /* inner space */
             border-radius: 16px;                /* rounded corners */
             width: min(240px, 100%);            /* card width */
@@ -338,7 +359,7 @@
             object-fit: cover;                  /* crop photo, no stretching */
             border-radius: 50%;                 /* round photo */
             margin-bottom: 16px;                /* space below */
-            max-width: 100%;
+            max-width: 100%;                    /* don't overflow container */
         }
 
         .team-member .role {
@@ -347,6 +368,9 @@
             text-align: justify;                /* justify paragraph text */
         }
 
+        /* ========== RESPONSIVE DESIGN ========== */
+        
+        /* ===== MEDIUM SCREENS (1100px and below) - Tablets ===== */
         @media (max-width: 1100px) {
             .nav-container {
                 padding: 0 24px;                /* reduce side padding on smaller desktops */
@@ -386,6 +410,7 @@
             }
         }
 
+        /* ===== SMALL SCREENS (820px and below) - Tablets/Phones with Hamburger Menu ===== */
         @media (max-width: 820px) {
             .nav-container {
                 display: flex;                   /* switch to flexible layout */
@@ -447,18 +472,19 @@
             }
 
             .carousel-container {
-                margin-top: 70px !important;
+                margin-top: 70px !important;    /* extra space for carousel */
             }
 
             .carousel-wrapper {
-                padding-top: 70px !important;
+                padding-top: 70px !important;   /* carousel padding */
             }
 
             .carousel-slide {
-                top: 70px !important;
+                top: 70px !important;           /* carousel position */
             }
         }
 
+        /* ===== MOBILE SCREENS (560px and below) - Mobile Devices ===== */
         @media (max-width: 560px) {
             .container {
                 padding: 0 16px;                /* less side spacing */
@@ -520,7 +546,7 @@
             }
 
             .carousel-slide {
-                top: 40px !important;
+                top: 40px !important;           /* carousel position */
             }
 
             .home-buttons {
@@ -540,7 +566,7 @@
 
             .team-members {
                 display: grid;                  /* use grid for side-by-side cards */
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 equal columns */
                 gap: 8px;                       /* pull cards closer together */
                 align-items: stretch;           /* keep equal heights */
             }
@@ -558,7 +584,7 @@
                 margin-bottom: 8px;             /* tighter spacing */
             }
 
-            .team-member h3 {
+                .team-member h3 {
                 font-size: 1rem;                /* compact name size */
                 margin-bottom: 6px;             /* tighter spacing */
             }
@@ -584,6 +610,7 @@
             }
         }
 
+        /* ===== EXTRA SMALL SCREENS (360px and below) - Small Mobile Devices ===== */
         @media (max-width: 360px) {
             .logo {
                 font-size: 0.9rem;             /* smaller logo on tiny screens */
@@ -600,6 +627,7 @@
             }
         }
 
+        /* ========== FOOTER SECTION ========== */
         .site-footer {
             background: #f5f3ec;              /* footer background */
             color: #000000;                   /* footer text */
@@ -626,6 +654,7 @@
             line-height: 1.6;                   /* comfortable reading height */
         }
 
+        /* ========== CAROUSEL SECTION ========== */
         .carousel-container {
             position: relative;                 /* positioning context */
             width: 100%;                        /* full width */
