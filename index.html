@@ -446,33 +446,16 @@
                 letter-spacing: -0.04em;        /* tighter heading spacing */
             }
 
-            .home-buttons {
-                gap: 14px;                      /* tighter button gap */
+            .carousel-container {
+                margin-top: 70px !important;
             }
 
-            .home-buttons a {
-                padding: 16px 26px;             /* reduce button size */
-                font-size: 1.05rem;             /* smaller button text */
-                gap: 12px;                      /* reduce icon gap */
+            .carousel-wrapper {
+                padding-top: 70px !important;
             }
 
-            .home-buttons a i,
-            .home-buttons a.outline i {
-                font-size: 1.3rem;              /* smaller icons */
-            }
-
-            .project-section,
-            .team-section {
-                padding: 56px 0;                /* reduce section spacing */
-            }
-
-            .project-info {
-                padding: 24px;                  /* reduce card padding */
-                margin-bottom: 28px;            /* reduce bottom margin */
-            }
-
-            .project-info h1 {
-                font-size: 1.5rem;              /* smaller heading */
+            .carousel-slide {
+                top: 70px !important;
             }
         }
 
@@ -508,23 +491,45 @@
                 margin-bottom: 28px;            /* smaller paragraph gap */
             }
 
+            .carousel-container {
+                margin-top: 40px !important;
+            }
+
+            .carousel-wrapper {
+                padding-top: 40px !important;
+            }
+
+            .carousel-slide {
+                top: 40px !important;
+            }
+
             .home-buttons {
-                grid-template-columns: 1fr;     /* stack buttons vertically */
+                gap: 14px;                      /* tighter button gap */
             }
 
             .home-buttons a {
-                justify-content: center;        /* center content */
-                width: 100%;                    /* full width button */
+                padding: 16px 26px;             /* reduce button size */
+                font-size: 1.05rem;             /* smaller button text */
+                gap: 12px;                      /* reduce icon gap */
+            }
+
+            .home-buttons a i,
+            .home-buttons a.outline i {
+                font-size: 1.3rem;              /* smaller icons */
             }
 
             .project-section,
             .team-section {
-                padding: 44px 0;                /* reduce section padding */
+                padding: 56px 0;                /* reduce section spacing */
             }
 
-            .team-member {
-                width: 100%;                    /* full width member card */
-                max-width: 280px;               /* keep card readable */
+            .project-info {
+                padding: 24px;                  /* reduce card padding */
+                margin-bottom: 28px;            /* reduce bottom margin */
+            }
+
+            .project-info h1 {
+                font-size: 1.5rem;              /* smaller heading */
             }
         }
 
@@ -576,6 +581,7 @@
             max-width: 100%;                    /* prevent overflow */
             height: auto;                       /* natural height */
             grid-column: 1 / -1;                /* extend across full width */
+            margin-top: 0;                      /* move carousel higher on desktop */
             margin-bottom: 56px;                /* space below carousel */
             display: flex;                      /* flex layout */
             flex-direction: column;             /* stack items */
@@ -589,16 +595,17 @@
             overflow: visible;                  /* allow content to show */
             display: flex;                      /* align content */
             align-items: flex-start;            /* start at top */
+            padding-top: 0;                     /* lift content upward */
         }
 
         .carousel-slide {
             position: absolute;                 /* stack text layers */
-            top: 0;                             /* align at top */
+            top: 0;                             /* lift slide text upward */
             left: 0;                            /* align left */
             width: 100%;                        /* full width */
             opacity: 0;                         /* hidden by default */
             transition: opacity 0.8s ease-in-out; /* smooth fade */
-            font-size: clamp(3rem, 7.6vw, 8.5rem); /* heading size */
+            font-size: clamp(4rem, 12vw, 6rem); /* a bit larger carousel text */
             font-weight: 700;                   /* bold */
             line-height: 1.1;                   /* comfortable line spacing */
             color: #10261f;                      /* text color */
