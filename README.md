@@ -89,7 +89,7 @@ https://dictionaryapi.com/ or use this if no other choice, as back-up
     ```
     API_KEY=4bc54b76-6f88-4764-823d-d5cc0a51fcf7
     ```
-use it as last resort.....
+use it as last resort.....but much better to register as this key may not work when you run the server.
 
 **Important:** Do not share your actual API key or upload your `.env` file to GitHub. Make sure `.env` is included in your `.gitignore` file.
 
