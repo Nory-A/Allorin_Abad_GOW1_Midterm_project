@@ -24,9 +24,10 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;   /* default font */
+            font-family: 'Arial', sans-serif;     /* default font */
             color: rgb(5, 49, 12);              /* default text color (dark green) */
             background: #f5f3ec;                /* match the page background */
+            overflow-x: hidden;                   /* prevent horizontal overflow */
         }
 
         img {
@@ -34,9 +35,17 @@
         }
 
         .container {
-            max-width: 1200px;              /* limit content width */
+            width: min(1200px, calc(100% - 32px));
+            max-width: 1200px;
             margin: 0 auto;                 /* center the container */
             padding: 0 24px;                /* side space */
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                width: min(100%, calc(100% - 20px));
+                padding: 0 10px;
+            }
         }
 
         /* ========== NAVBAR ========== */
@@ -51,12 +60,14 @@
         }
 
         .nav-container {
+            width: min(1600px, 100%);
             max-width: 1920px;                  /* limit width on huge screens */
             padding: 0 56px;                    /* side space */
             min-height: 80px;                   /* navbar height */
             display: grid;                      /* use grid layout */
             grid-template-columns: 1fr auto 1fr;   /* logo | links | button */
             align-items: center;                /* center vertically */
+            margin: 0 auto;
         }
 
         .logo {
@@ -67,6 +78,7 @@
             color: #10261f;                     /* text color */
             font-size: 1.6rem;                  /* text size */
             font-weight: 600;                   /* semi-bold */
+            min-width: 0;
         }
 
         .logo-icon {
@@ -78,12 +90,15 @@
             color: #e3ff5e;                     
             border-radius: 50%;                 /* makes it a circle */
             font-size: 1.6rem;                  /* icon size */
+            flex-shrink: 0;
         }
 
         .nav-links {
             display: flex;                      /* links in a row */
             align-items: center;                /* align vertically */
             gap: 48px;                          /* space between links */
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .nav-links a {
@@ -114,18 +129,20 @@
             display: inline-flex;               /* text ug icon naa sa same row */
             align-items: center;                /* i-align vertically */
             gap: 14px;                          /* space between text ug icon */
-            padding: 16px 30px;                 /* size sa button */
+            padding: 12px 22px;                 /* smaller button size */
             background: #15403a;               
             color: #fff;                      
             text-decoration: none;              
             font-weight: 600;                   
-            font-size: 1.15rem;                 /* size sa text */
+            font-size: 1.1rem;                 /* smaller text */
             border-radius: 999px;               
             transition: transform 0.2s ease, box-shadow 0.2s ease; /* smooth ang effect */
+            white-space: nowrap;
+            min-height: 58px;
         }
 
         .dictionary-button i {
-            font-size: 1.7rem;                  /* icon size */
+            font-size: 1.5rem;                  /* icon size */
         }
 
         .dictionary-button:hover {
@@ -151,7 +168,7 @@
             min-height: 100vh;                  /* full screen height */
             height: calc(100vh - 82px);          /* keeps the home section from overflowing */
             width: 100%;                        /* fit the background across the full width */
-            padding: 80px 56px;                 /* inner space */
+            padding: clamp(40px, 7vw, 80px) clamp(20px, 4vw, 56px); /* inner space */
             margin: 0;                          /* remove extra outer spacing */
             font-family: 'DM Sans', 'Segoe UI', Arial, sans-serif;  
             color: #10261f;                     /* text color */
@@ -178,6 +195,7 @@
             line-height: 0.98;                  /* tight lines */
             margin-top: -30px;                  /* move headline a little upward */
             margin-bottom: 56px;                /* space below */
+            word-break: break-word;
         }
 
         .home-content p {
@@ -212,6 +230,7 @@
             background: #15403a;                /* dark green */
             color: #fff;                        /* white text */
             transition: transform 0.2s ease, box-shadow 0.2s ease;  /* smooth hover */
+            white-space: nowrap;
         }
 
         .home-buttons a i {
@@ -224,7 +243,7 @@
         }
 
         .home-buttons a.outline {
-            background: transparent;            /* no fill */
+            background: transparent;              /* no fill */
             color: #10261f;                     /* dark text */
             border: 1px solid #15403a;          /* dark green border */
         }
@@ -238,7 +257,7 @@
         }
 
         .project-section {
-            padding: 60px 0;                    /* space above and below */
+            padding: 60px clamp(16px, 3vw, 40px);  /* space above and below */
             background-image: url('Images/Image.png');  /* image.png background */
             background-size: cover;             /* cover the entire section */
             background-position: center;        /* center the background */
@@ -281,13 +300,13 @@
         /* ========== TEAM SECTION ========== */
         .team-section {
             background-image: url('Images/People.png');     /* people.png background */
-            padding: 70px 0;                    /* space above and below */
+            padding: 70px clamp(16px, 3vw, 40px); /* space above and below */
             text-align: center;                 /* center the text */
             background-color: #f5f3ec;          /* fallback color */
         }
 
         .team-content h1 {
-            font-size: 2.4rem;                  /* title size */
+            font-size: clamp(1.8rem, 4vw, 2.4rem);  /* title size */
             margin-bottom: 16px;                /* space below */
             margin-top: -15px;
         }
@@ -309,7 +328,7 @@
             background: #f5f3ec;                   /* cream card */
             padding: 28px;                      /* inner space */
             border-radius: 16px;                /* rounded corners */
-            width: 240px;                       /* card width */
+            width: min(240px, 100%);            /* card width */
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);   /* soft shadow */
         }
 
@@ -319,132 +338,122 @@
             object-fit: cover;                  /* crop photo, no stretching */
             border-radius: 50%;                 /* round photo */
             margin-bottom: 16px;                /* space below */
+            max-width: 100%;
         }
 
         .team-member .role {
             opacity: 0.7;                       /* slightly faded */
             margin-top: 4px;                    /* small space above */
+            text-align: justify;                /* justify paragraph text */
         }
 
-        @media (max-width: 1280px) {
+        @media (max-width: 1100px) {
             .nav-container {
-                padding: 0 32px;                /* less side space */
+                padding: 0 24px;                /* reduce side padding on smaller desktops */
             }
 
             .home-section {
-                padding: 28px 36px 18px;        /* tighter hero spacing */
-            }
-
-            .home-buttons a {
-                padding: 14px 22px;             /* smaller buttons */
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .home-section {
-                min-height: auto;               /* no full-screen height */
-                height: auto;                   /* let it fit naturally */
-                padding: 56px 28px 72px;        /* hero spacing */
+                min-height: auto;               /* allow natural height */
+                height: auto;                   /* remove forced hero height */
+                padding: 56px 24px 72px;        /* tighter hero spacing */
             }
 
             .home-content {
-                display: block;                 /* turn off grid, stack everything */
+                display: block;                 /* stack hero content vertically */
             }
 
             .home-content h1 {
-                max-width: 100%;                /* full width headline */
-                font-size: clamp(2.8rem, 9vw, 5.5rem);  /* tablet headline size */
-                margin-bottom: 26px;            /* space below */
+                max-width: 100%;                 /* let title use full line */
+                font-size: clamp(2.8rem, 9vw, 5.5rem); /* responsive title size */
+                margin-bottom: 26px;             /* lower spacing under title */
+                margin-top: 0;                   /* reset top offset */
             }
 
             .home-content p {
-                max-width: 100%;                /* full width paragraph */
-                margin-bottom: 28px;            /* space below */
+                max-width: 100%;                /* allow paragraph to stretch */
+                margin-bottom: 28px;            /* space before buttons */
             }
 
             .home-buttons {
-                display: grid;                  /* keep the grid layout */
-                grid-template-columns: 1fr 1fr; /* 2 equal columns under the paragraph */
-                gap: 16px;                      /* space between buttons */
+                display: grid;                  /* keep buttons aligned */
+                grid-template-columns: 1fr 1fr; /* two-column layout */
+                gap: 16px;                      /* gap between buttons */
+                justify-content: start;         /* align to left */
             }
 
             .team-members {
-                gap: 18px;                      /* tighter cards */
+                gap: 18px;                      /* tighter card spacing */
             }
         }
 
-        /* ========== LARGE PHONE (768px and below) ========== */
-        @media (max-width: 768px) {
+        @media (max-width: 820px) {
             .nav-container {
-                display: flex;                  /* switch from grid to flex */
-                flex-wrap: wrap;                /* allow the menu to drop below */
-                justify-content: space-between; /* logo left, hamburger right */
-                align-items: center;            /* center vertically */
-                padding: 12px 20px;             /* navbar spacing */
-                min-height: 72px;               /* navbar height */
+                display: flex;                   /* switch to flexible layout */
+                flex-wrap: wrap;                 /* wrap items on narrow screens */
+                justify-content: space-between;  /* spread logo and menu */
+                align-items: center;             /* center items vertically */
+                padding: 12px 20px;               /* smaller horizontal spacing */
+                min-height: 72px;                 /* shorter nav height */
             }
 
             .logo {
-                order: 1;                       /* logo comes first */
-                font-size: 1.2rem;              /* smaller text */
-                gap: 12px;                      /* smaller gap */
+                order: 1;                         /* logo first */
+                font-size: 1.2rem;                /* smaller logo text */
+                gap: 12px;                        /* smaller logo spacing */
             }
 
             .logo-icon {
-                width: 44px;                    /* smaller circle */
-                height: 44px;                   /* smaller circle */
-                font-size: 1.2rem;              /* smaller icon */
+                width: 44px;                      /* smaller icon size */
+                height: 44px;                     /* smaller icon size */
+                font-size: 1.2rem;                /* smaller icon text */
             }
 
             .menu-toggle {
-                display: block;                 /* show the hamburger */
-                order: 2;                       /* after the logo */
+                display: block;                 /* show hamburger menu */
+                order: 2;                       /* place menu after logo */
             }
 
             .nav-links,
             .dictionary-button {
-                display: none;                  /* hide until the menu opens */
+                display: none;                  /* hide desktop nav */
                 width: 100%;                    /* full width when shown */
             }
 
             .navbar.open .nav-links {
-                display: flex;                  /* show links when menu is open */
+                display: flex;                  /* open dropdown nav */
                 flex-direction: column;         /* stack links vertically */
-                align-items: flex-start;        /* align left */
-                gap: 20px;                      /* space between links */
-                order: 3;                       /* below the logo row */
-                padding: 20px 0 8px;            /* menu spacing */
-            }
-
-            .navbar.open .nav-links a {
-                font-size: 1.2rem;              /* bigger tap targets */
+                align-items: flex-start;        /* align links left */
+                gap: 20px;                      /* spacing between menu links */
+                order: 3;                       /* place below the brand row */
+                padding: 20px 0 8px;            /* space inside dropdown */
+                width: 100%;                    /* full width */
             }
 
             .navbar.open .dictionary-button {
-                display: flex;                  /* show button when menu is open */
-                justify-content: center;        /* center the text */
-                order: 4;                       /* at the bottom */
-                margin: 12px 0 8px;             /* space around */
+                display: flex;                  /* show CTA in mobile menu */
+                justify-content: center;        /* center the button text */
+                order: 4;                       /* place under nav links */
+                margin: 12px 0 8px;             /* top and bottom spacing */
+                width: 100%;                    /* full width button */
             }
 
             .home-section {
-                padding: 56px 20px 80px;        /* hero spacing */
+                padding: 56px 20px 80px;        /* smaller section spacing */
             }
 
             .home-content h1 {
-                font-size: clamp(2.6rem, 11vw, 4rem);   /* phone headline size */
-                letter-spacing: -0.04em;        /* slightly less tight */
+                font-size: clamp(2.6rem, 11vw, 4rem); /* smaller title for phones */
+                letter-spacing: -0.04em;        /* tighter heading spacing */
             }
 
             .home-buttons {
-                gap: 14px;                      /* closer buttons */
+                gap: 14px;                      /* tighter button gap */
             }
 
             .home-buttons a {
-                padding: 16px 26px;             /* smaller buttons */
-                font-size: 1.05rem;             /* smaller text */
-                gap: 12px;                      /* smaller gap */
+                padding: 16px 26px;             /* reduce button size */
+                font-size: 1.05rem;             /* smaller button text */
+                gap: 12px;                      /* reduce icon gap */
             }
 
             .home-buttons a i,
@@ -454,182 +463,180 @@
 
             .project-section,
             .team-section {
-                padding: 56px 0;                /* less section space */
+                padding: 56px 0;                /* reduce section spacing */
             }
 
             .project-info {
-                padding: 24px;                  /* less card space */
-                margin-bottom: 28px;            /* less space below */
+                padding: 24px;                  /* reduce card padding */
+                margin-bottom: 28px;            /* reduce bottom margin */
             }
 
             .project-info h1 {
-                font-size: 1.5rem;              /* smaller card title */
-            }
-
-            .team-content h1 {
-                font-size: 2rem;                /* smaller team title */
+                font-size: 1.5rem;              /* smaller heading */
             }
         }
 
-        /* ========== PHONE (480px and below) ========== */
-        @media (max-width: 480px) {
+        @media (max-width: 560px) {
             .container {
-                padding: 0 16px;                /* less side space */
+                padding: 0 16px;                /* less side spacing */
             }
 
             .nav-container {
-                padding: 10px 16px;             /* smaller navbar spacing */
+                padding: 10px 16px;             /* compact mobile nav */
             }
 
             .logo {
-                font-size: 1.05rem;             /* smaller logo text */
+                font-size: 1.05rem;             /* smaller logo */
             }
 
             .logo-icon {
-                width: 38px;                    /* smaller circle */
-                height: 38px;                   /* smaller circle */
-                font-size: 1.05rem;             /* smaller icon */
+                width: 38px;                    /* smaller icon */
+                height: 38px;                   /* smaller icon */
+                font-size: 1.05rem;             /* smaller icon text */
             }
 
             .home-section {
-                padding: 44px 16px 72px;        /* hero spacing */
+                padding: 44px 16px 72px;        /* tighter mobile spacing */
             }
 
             .home-content h1 {
-                margin-bottom: 24px;            /* less space below */
+                margin-bottom: 24px;            /* less spacing below title */
+                min-width: 0;                   /* allow wrapping */
             }
 
             .home-content p {
-                margin-bottom: 28px;            /* less space below */
+                margin-bottom: 28px;            /* smaller paragraph gap */
             }
 
             .home-buttons {
-                grid-template-columns: 1fr;     /* 1 column so the text fits on small phones */
+                grid-template-columns: 1fr;     /* stack buttons vertically */
             }
 
             .home-buttons a {
-                justify-content: center;        /* center the text and icon */
+                justify-content: center;        /* center content */
+                width: 100%;                    /* full width button */
             }
 
             .project-section,
             .team-section {
-                padding: 44px 0;                /* less section space */
-            }
-
-            .project-info h1 {
-                font-size: 1.3rem;              /* smaller card title */
-            }
-
-            .team-content h1 {
-                font-size: 1.7rem;              /* smaller team title */
-            }
-
-            .team-members {
-                flex-direction: column;         /* cards in one column */
-                align-items: center;            /* center cards */
+                padding: 44px 0;                /* reduce section padding */
             }
 
             .team-member {
-                width: 100%;                    /* full width card */
-                max-width: 280px;               /* but not too wide */
+                width: 100%;                    /* full width member card */
+                max-width: 280px;               /* keep card readable */
             }
         }
 
-        /* ========== FOOTER ========== */
+        @media (max-width: 360px) {
+            .logo {
+                font-size: 0.9rem;             /* smaller logo on tiny screens */
+                gap: 8px;                      /* tighter spacing */
+            }
+
+            .home-content h1 {
+                font-size: clamp(2.1rem, 11vw, 2.8rem); /* compact mobile headline */
+            }
+
+            .home-buttons a {
+                padding-inline: 16px;           /* less horizontal padding */
+                font-size: 0.96rem;             /* smaller text */
+            }
+        }
+
         .site-footer {
-            background: #f5f3ec;
-            color: #000000;
-            padding: 40px 0;
-            margin-top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: #f5f3ec;              /* footer background */
+            color: #000000;                   /* footer text */
+            padding: 40px 0;                    /* vertical spacing */
+            margin-top: 0;                      /* reset top margin */
+            width: 100%;                        /* full width */
+            display: flex;                      /* flex layout */
+            justify-content: center;            /* center content */
+            align-items: center;                /* center vertically */
         }
 
         .footer-content {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-size: 0.95rem;
+            width: 100%;                        /* full width */
+            display: flex;                      /* flex layout */
+            flex-direction: column;             /* stack text */
+            justify-content: center;            /* center vertically */
+            align-items: center;                /* center horizontally */
+            text-align: center;                 /* center text */
+            font-size: 0.95rem;                 /* footer text size */
         }
 
         .footer-content p {
-            margin: 8px 0;
-            line-height: 1.6;
+            margin: 8px 0;                      /* vertical spacing */
+            line-height: 1.6;                   /* comfortable reading height */
         }
 
-        /* ========== CAROUSEL ========== */
         .carousel-container {
-            position: relative;
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            grid-column: 1 / -1;
-            margin-bottom: 56px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            position: relative;                 /* positioning context */
+            width: 100%;                        /* full width */
+            max-width: 100%;                    /* prevent overflow */
+            height: auto;                       /* natural height */
+            grid-column: 1 / -1;                /* extend across full width */
+            margin-bottom: 56px;                /* space below carousel */
+            display: flex;                      /* flex layout */
+            flex-direction: column;             /* stack items */
+            gap: 20px;                          /* space between elements */
         }
 
         .carousel-wrapper {
-            position: relative;
-            width: 100%;
-            min-height: 200px;
-            overflow: visible;
-            display: flex;
-            align-items: flex-start;
+            position: relative;                 /* wrapper for slides */
+            width: 100%;                        /* full width */
+            min-height: 200px;                  /* minimum height */
+            overflow: visible;                  /* allow content to show */
+            display: flex;                      /* align content */
+            align-items: flex-start;            /* start at top */
         }
 
         .carousel-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            font-size: clamp(3rem, 7.6vw, 8.5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            color: #10261f;
-            word-wrap: break-word;
-            white-space: normal;
-            overflow: visible;
-            margin: 0;
+            position: absolute;                 /* stack text layers */
+            top: 0;                             /* align at top */
+            left: 0;                            /* align left */
+            width: 100%;                        /* full width */
+            opacity: 0;                         /* hidden by default */
+            transition: opacity 0.8s ease-in-out; /* smooth fade */
+            font-size: clamp(3rem, 7.6vw, 8.5rem); /* heading size */
+            font-weight: 700;                   /* bold */
+            line-height: 1.1;                   /* comfortable line spacing */
+            color: #10261f;                      /* text color */
+            word-wrap: break-word;              /* wrap long words */
+            white-space: normal;                /* allow wrapping */
+            overflow: visible;                  /* allow text to show */
+            margin: 0; /* reset margin */
         }
 
         .carousel-slide.active {
-            opacity: 1;
+            opacity: 1; /* show active slide */
         }
 
         .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 24px;
+            display: flex;                      /* align dots horizontally */
+            justify-content: center;            /* center dots */
+            gap: 12px;                          /* space between dots */
+            margin-top: 24px;                   /* push below carousel */
         }
 
         .carousel-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(16, 38, 31, 0.3);
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease;
-            border: none;
-            padding: 0;
+            width: 12px;                        /* dot size */
+            height: 12px;                       /* dot size */
+            border-radius: 50%;                 /* round dot */
+            background: rgba(16, 38, 31, 0.3); /* inactive color */
+            cursor: pointer;                    /* show pointer */
+            transition: background 0.3s ease, transform 0.3s ease; /* smooth transition */
+            border: none;                       /* remove border */
+            padding: 0;                         /* remove default padding */
         }
 
         .carousel-dot.active {
-            background: #15403a;
-            transform: scale(1.2);
+            background: #15403a;              /* active dot color */
+            transform: scale(1.2);              /* make active dot larger */
         }
 
         .carousel-dot:hover {
-            background: rgba(21, 64, 58, 0.6);
+            background: rgba(21, 64, 58, 0.6); /* hover color */
         }
     </style>
 </head>
@@ -732,7 +739,9 @@
                         Information Technology 
                     </p>
                     <p class="role">4th Year </p>
-                    <p class="role">Developer</p>
+                    <p class="role">HTML Structure & Semantics</p>
+                    <p class="role">CSS Styling & Layout</p>
+                    <p class="role">JavaScript Logic & API Integration</p>
                 </div>
 
                 <div class="team-member">
@@ -742,7 +751,9 @@
                         Information Technology 
                     </p>
                     <p class="role">4th Year </p>
-                    <p class="role">Developer</p>
+                    <p class="role">HTML Structure & Semantics</p>
+                    <p class="role">CSS Styling & Layout</p>
+                    <p class="role">JavaScript Logic</p>
                 </div>
             </div>
         </div>
@@ -760,74 +771,74 @@
 
 <script>
     // Carousel functionality
-    const slides = document.querySelectorAll('.carousel-slide');
-    const carouselDots = document.getElementById('carouselDots');
-    let currentSlide = 0;
-    const slideCount = slides.length;
+    const slides = document.querySelectorAll('.carousel-slide');  // select all slide elements
+    const carouselDots = document.getElementById('carouselDots'); // get the dots container
+    let currentSlide = 0;                                         // current slide index
+    const slideCount = slides.length;                             // total number of slides
 
     // Create carousel dots
-    for (let i = 0; i < slideCount; i++) {
-        const dot = document.createElement('button');
-        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-        dot.addEventListener('click', () => goToSlide(i));
-        carouselDots.appendChild(dot);
+    for (let i = 0; i < slideCount; i++) {                        // loop through each slide
+        const dot = document.createElement('button');             // create a new dot button
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : ''); // mark first dot active
+        dot.setAttribute('aria-label', 'Slide ' + (i + 1));       // accessibility label
+        dot.addEventListener('click', () => goToSlide(i));        // go to slide on click
+        carouselDots.appendChild(dot);                            // add dot to the container
     }
 
-    function updateCarousel() {
+    function updateCarousel() {                                   // update active slide and indicator
         // Update slides
         slides.forEach((slide, index) => {
             if (index === currentSlide) {
-                slide.classList.add('active');
+                slide.classList.add('active');                    // show active slide
             } else {
-                slide.classList.remove('active');
+                slide.classList.remove('active');                 // hide inactive slide
             }
         });
 
         // Update dots
-        const dots = document.querySelectorAll('.carousel-dot');
+        const dots = document.querySelectorAll('.carousel-dot'); // get all dots
         dots.forEach((dot, index) => {
             if (index === currentSlide) {
-                dot.classList.add('active');
+                dot.classList.add('active');                     // highlight active dot
             } else {
-                dot.classList.remove('active');
+                dot.classList.remove('active');                  // unhighlight other dots
             }
         });
     }
 
-    function goToSlide(n) {
-        currentSlide = n % slideCount;
-        updateCarousel();
+    function goToSlide(n) {                                     // jump to a selected slide
+        currentSlide = n % slideCount;                          // wrap around if needed
+        updateCarousel();                                       // refresh the display
     }
 
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slideCount;
-        updateCarousel();
+    function nextSlide() {                                      // move to the next slide
+        currentSlide = (currentSlide + 1) % slideCount;         // wrap around at end
+        updateCarousel();                                       // refresh the display
     }
 
     // Auto-rotate carousel every 5 seconds
-    setInterval(nextSlide, 5000);
+    setInterval(nextSlide, 5000);                               // rotate slider automatically
 
     // Navbar functionality
-    const navbar = document.getElementById('navbar');
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileLinks = document.querySelectorAll('.nav-links a, .dictionary-button');
+    const navbar = document.getElementById('navbar');           // get navbar element
+    const menuToggle = document.getElementById('menuToggle');   // get hamburger button
+    const mobileLinks = document.querySelectorAll('.nav-links a, .dictionary-button'); // all mobile menu links
 
-    if (navbar && menuToggle) {
-        menuToggle.addEventListener('click', () => {
-            const isOpen = navbar.classList.toggle('open');
-            menuToggle.setAttribute('aria-expanded', String(isOpen));
+    if (navbar && menuToggle) {                                 // only run if menu exists
+        menuToggle.addEventListener('click', () => {            // open or close menu
+            const isOpen = navbar.classList.toggle('open');     // toggle menu state
+            menuToggle.setAttribute('aria-expanded', String(isOpen)); // update aria state
             menuToggle.innerHTML = isOpen
-                ? '<i class="bi bi-x-lg"></i>'
-                : '<i class="bi bi-list"></i>';
+                ? '<i class="bi bi-x-lg"></i>'                  // show close icon when open
+                : '<i class="bi bi-list"></i>';                 // show menu icon when closed
         });
 
-        mobileLinks.forEach((link) => {
+        mobileLinks.forEach((link) => {                         // close menu after clicking a link
             link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    navbar.classList.remove('open');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                    menuToggle.innerHTML = '<i class="bi bi-list"></i>';
+                if (window.innerWidth <= 768) {                 // only on small screens
+                    navbar.classList.remove('open');            // close menu
+                    menuToggle.setAttribute('aria-expanded', 'false'); // reset aria state
+                    menuToggle.innerHTML = '<i class="bi bi-list"></i>'; // reset icon
                 }
             });
         });
