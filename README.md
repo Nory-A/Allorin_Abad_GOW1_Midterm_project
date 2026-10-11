@@ -152,8 +152,56 @@ If the value of word is love, the generated URL becomes:
 This link allows users to open the corresponding Merriam-Webster dictionary page for a word. 
 The code creates the URL; it does not automatically open the page.
 
+# **Some Functions use in our Dictionary Web App**
+**1. clean(text)**
 
+function clean(text) {
+    return String(text || "")
+        .replace(/\{bc\}/g, ": ")
+        .replace(/\{[^}]*\}/g, "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+Purpose: Cleans the text from the meriam before displaying it on our dictionary app.
 
+- String(text || "") — means it converts the value into text. If it is empty or missing, it uses an empty string.
+- .replace(/\{bc\}/g, ": ") — replaces {bc} with a colon and space.
+- .replace(/\{[^}]*\}/g, "") — removes special codes inside curly brackets.
+- .replace(/&/g, "&amp;") — handles ampersands (&) safely.
+- .replace(/</g, "&lt;") — handles the less-than symbol (<) safely. 
+- .replace(/>/g, "&gt;") — handles the greater-than symbol (>) safely.
+
+- **Example:**
+{bc}superior to (as in rank, quality, or degree)	 : superior to (as in rank, quality, or degree)
+A sergeant is {wi}above{\/wi} a corporal.	           A sergeant is above a corporal.
+{wi}above{\/wi} suspicion	                           above suspicion
+not {wi}above{\/wi} taking undue credit	               not above taking undue credit
+
+**2. function getExamples(entry, limit = 2)** 
+{
+    const examples = [];
+    try {
+        for (const sseq of entry.def || []) {
+            for (const sense of sseq.sseq || []) {
+                for (const item of sense) {
+                    const dt = item[1]?.dt || [];
+                    for (const part of dt) {
+                        if (part[0] === "vis") {
+                            for (const v of part[1]) examples.push(clean(v.t));
+                        }
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        console.warn("Could not parse examples", e);
+    }
+    return examples.slice(0, limit);
+}
+
+Purpose: to get example sentences from the meriam dictionary API. If the dictionary has five example 
+sentences, this function displays only the first two.
 
 
 
