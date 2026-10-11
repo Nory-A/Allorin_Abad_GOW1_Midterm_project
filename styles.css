@@ -392,7 +392,12 @@ body {
     .home-content h1 {
         font-size: clamp(2.3rem, 8vw, 3.3rem);
     }
-
+    #main-heading {
+        font-size: 40px;
+    }
+    #main-subheading {
+        font-size: 10px;
+    }
     .search-box {
         gap: 8px;
     }
@@ -445,7 +450,12 @@ body {
         margin-bottom: 26px;
         font-size: 1rem;
     }
-
+    #main-heading {
+        font-size: 30px;
+    }
+    #main-subheading {
+        font-size: 5px;
+    }
     .search-box {
         flex-wrap: nowrap;
         gap: 6px;
@@ -477,7 +487,12 @@ body {
     .home-content h1 {
         font-size: 2.1rem;
     }
-
+    #main-heading {
+        font-size: 30px;
+    }
+    #main-subheading {
+        font-size: 5px;
+    }
     .search-box {
         gap: 5px;
     }
