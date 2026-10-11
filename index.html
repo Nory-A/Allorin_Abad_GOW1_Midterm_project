@@ -521,14 +521,32 @@
             .team-members {
                 display: grid;                  /* use grid for side-by-side cards */
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 14px;                      /* close gap between cards */
+                gap: 8px;                       /* pull cards closer together */
+                align-items: stretch;           /* keep equal heights */
             }
 
             .team-member {
                 width: 100%;                    /* full width of each grid cell */
                 max-width: none;                /* let both cards sit side by side */
-                padding: 14px 12px;             /* smaller card padding */
+                padding: 12px 10px;             /* smaller compact card padding */
                 font-size: 0.9rem;              /* smaller text inside cards */
+            }
+
+            .team-member img {
+                width: 86px;                    /* smaller profile photo */
+                height: 86px;                   /* smaller profile photo */
+                margin-bottom: 8px;             /* tighter spacing */
+            }
+
+            .team-member h3 {
+                font-size: 1rem;                /* compact name size */
+                margin-bottom: 6px;             /* tighter spacing */
+            }
+
+            .team-member .role {
+                font-size: 0.72rem;             /* smaller role text */
+                line-height: 1.25;              /* tighter lines */
+                margin-top: 2px;               /* minimal spacing */
             }
 
             .project-section,
