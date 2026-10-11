@@ -5,14 +5,6 @@ const path = require("path");
 const app = express();
 app.use(express.static(path.join(__dirname)));
 
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
-});
-
-app.get("/app.html", (req, res) => {
-    res.sendFile(path.join(__dirname, "app.html"));
-});
-
 console.log("Node version:", process.version);
 console.log("Key loaded:", process.env.API_KEY ? "yes (" + process.env.API_KEY.length + " chars)" : "NO");
 
@@ -37,4 +29,4 @@ app.get("/api/define/:word", async (req, res) => {
     }
 });
 
-module.exports = app;
+app.listen(3000, () => console.log("Running at http://localhost:3000"));
