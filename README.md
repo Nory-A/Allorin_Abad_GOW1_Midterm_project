@@ -153,7 +153,9 @@ This link allows users to open the corresponding Merriam-Webster dictionary page
 The code creates the URL; it does not automatically open the page.
 
 # **Some Functions use in our Dictionary Web App**
-**1. clean(text)**
+1. clean(text)
+
+Code Implementation
 
 function clean(text) {
     return String(text || "")
@@ -163,32 +165,58 @@ function clean(text) {
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
 }
-Purpose: Cleans the text from the meriam before displaying it on our dictionary app.
 
-- String(text || "") — means it converts the value into text. If it is empty or missing, it uses an empty string.
-- .replace(/\{bc\}/g, ": ") — replaces {bc} with a colon and space.
-- .replace(/\{[^}]*\}/g, "") — removes special codes inside curly brackets.
-- .replace(/&/g, "&amp;") — handles ampersands (&) safely.
-- .replace(/</g, "&lt;") — handles the less-than symbol (<) safely. 
-- .replace(/>/g, "&gt;") — handles the greater-than symbol (>) safely.
+Purpose
 
-- **Example:**
-{bc}superior to (as in rank, quality, or degree)	 : superior to (as in rank, quality, or degree)
-A sergeant is {wi}above{\/wi} a corporal.	           A sergeant is above a corporal.
-{wi}above{\/wi} suspicion	                           above suspicion
-not {wi}above{\/wi} taking undue credit	               not above taking undue credit
+Cleans the text received from the Merriam-Webster Dictionary API before displaying it in our dictionary web application.
 
-**2. function getExamples(entry, limit = 2)** 
-{
+Explanation
+
+String(text || "") — Converts the value into text. If it is missing or empty, it uses an empty string.
+
+.replace(/\{bc\}/g, ": ") — Replaces {bc} with a colon and a space.
+
+.replace(/\{[^}]*\}/g, "") — Removes special codes inside curly brackets.
+
+.replace(/&/g, "&amp;") — Converts ampersands (&) into a safe HTML representation.
+
+.replace(/</g, "&lt;") — Converts the less-than symbol (<) into a safe HTML representation.
+
+.replace(/>/g, "&gt;") — Converts the greater-than symbol (>) into a safe HTML representation.
+
+Examples
+
+{bc}superior to (as in rank, quality, or degree)  : superior to (as in rank, quality, or degree)
+
+A sergeant is {wi}above{/wi} a corporal.            A sergeant is above a corporal.
+
+{wi}above{/wi} suspicion                            above suspicion
+
+not {wi}above{/wi} taking undue credit              not above taking undue credit
+
+Result: The function removes special formatting codes and handles certain HTML characters so the text can be displayed more safely in our dictionary web application.
+## 2. `getExamples(entry, limit = 2)`
+
+### Purpose
+Gets example sentences from the Merriam-Webster Dictionary API. By default, it returns only the first two examples, even if the API provides more.
+
+### Code Implementation
+
+```javascript
+function getExamples(entry, limit = 2) {
     const examples = [];
+
     try {
         for (const sseq of entry.def || []) {
             for (const sense of sseq.sseq || []) {
                 for (const item of sense) {
                     const dt = item[1]?.dt || [];
+
                     for (const part of dt) {
                         if (part[0] === "vis") {
-                            for (const v of part[1]) examples.push(clean(v.t));
+                            for (const v of part[1]) {
+                                examples.push(clean(v.t));
+                            }
                         }
                     }
                 }
@@ -197,76 +225,38 @@ not {wi}above{\/wi} taking undue credit	               not above taking undue cr
     } catch (e) {
         console.warn("Could not parse examples", e);
     }
+
     return examples.slice(0, limit);
 }
+```
 
-Purpose: to get example sentences from the meriam dictionary API. If the dictionary has five example 
-sentences, this function displays only the first two sentences.
+### Example from the Merriam-Webster API
 
-- Example:
-Verbal illustrations vis sample in meriam documentation
+The API uses `"vis"` (verbal illustrations) to identify example sentences.
 
-[
-  "sense",
-  {
-    "sn":"2 a",
-    "dt":[
-      ["text","{bc}superior to (as in rank, quality, or degree) "],
-      [
-        "vis",
-        [
-          {"t":"A sergeant is {wi}above{\/wi} a corporal."}    <-------------------- 1st example
-        ]
-      ]
-    ]
-  }
-],[
-  "sense",
-  {
-    "sn":"b",
-    "dt":[
-      ["text","{bc}out of reach of "],
-      [
-        "vis",
-        [
-          {"t":"{wi}above{\/wi} suspicion"}      <-------------------second example
-        ]
-      ]
-    ]
-  }
-],[
-  "sense",
-  {
-    "sn":"c",
-    "dt":[
-      ["text","{bc}in preference to "],
-      [
-        "vis",
-        [
-          {"t":"puts his child\u0027s needs {wi}above{\/wi} his
-          own needs"}
-        ]
-      ]
-    ]
-  }
-],[
-  "sense",
-  {
-    "sn":"d",
-    "dt":[
-      ["text","{bc}too proud or honorable to stoop to "],
-      [
-        "vis",
-        [
-          {"t":"not {wi}above{\/wi} taking undue credit"}
-        ]
-      ]
-    ]
-  }
-]
+The following are four example sentences returned in the API data:
 
-- The output  should show 2 examples.
+| No. | Original API example |
+|---|---|
+| 1 | `A sergeant is {wi}above{/wi} a corporal.` |
+| 2 | `{wi}above{/wi} suspicion` |
+| 3 | `puts his child's needs {wi}above{/wi} his own needs` |
+| 4 | `not {wi}above{/wi} taking undue credit` |
+
+### How It Works
+
+1. The function loops through the API data to find entries marked `"vis"`.
+2. `clean(v.t)` removes special formatting codes from each sentence.
+3. `examples.push()` adds each cleaned sentence to the list.
+4. `examples.slice(0, limit)` returns only the first two examples by default.
+
+### Expected Output
+
+```javascript
 [
     "A sergeant is above a corporal.",
     "above suspicion"
 ]
+```
+
+**Result:** Although the API provides four example sentences, the function returns only the first two because `limit` is set to `2`.
