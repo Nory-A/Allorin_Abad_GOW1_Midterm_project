@@ -85,7 +85,7 @@ async function searchWord() {
         return;
     }
 
-    result.innerHTML = "<p>Searching...</p><p>Please wait while we find the definition.</p>";
+    result.innerHTML = "<p>Searching...</br>Please wait while we find the definition.</p>";
 
     try {
         const response = await fetch(`/api/define/${encodeURIComponent(word)}`);
@@ -134,8 +134,8 @@ async function searchWord() {
                     </ol>
                     ${examples.length ? `
                         <div class="examples">
-                            <h4>Examples of ${name}</h4>
-                            ${examples.map((ex) => `<p>${ex}</p>`).join("")}
+                            <h4>Examples of ${name}:</h4>
+                            ${examples.map((ex, i) => `<p>${i + 1}. ${ex}</p>`).join("")}
                         </div>` : ""}
                     <a class="more" target="_blank" href="https://www.merriam-webster.com/dictionary/${encodeURIComponent(word)}">
                         See full entry
