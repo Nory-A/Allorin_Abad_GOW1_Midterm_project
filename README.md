@@ -152,11 +152,13 @@ If the value of word is love, the generated URL becomes:
 This link allows users to open the corresponding Merriam-Webster dictionary page for a word. 
 The code creates the URL; it does not automatically open the page.
 
-# **Some Functions use in our Dictionary Web App**
-1. clean(text)
+# Some Functions Used in Our Dictionary Web App
 
-Code Implementation
+## 1. `clean(text)`
 
+### Code Implementation
+
+```javascript
 function clean(text) {
     return String(text || "")
         .replace(/\{bc\}/g, ": ")
@@ -165,36 +167,32 @@ function clean(text) {
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
 }
+```
 
-Purpose
+### Purpose
 
 Cleans the text received from the Merriam-Webster Dictionary API before displaying it in our dictionary web application.
 
-Explanation
+### Explanation
 
-String(text || "") — Converts the value into text. If it is missing or empty, it uses an empty string.
+- `String(text || "")` — Converts the value into text. If it is missing or empty, it uses an empty string.
+- `.replace(/\{bc\}/g, ": ")` — Replaces `{bc}` with a colon and a space.
+- `.replace(/\{[^}]*\}/g, "")` — Removes special codes inside curly brackets.
+- `.replace(/&/g, "&amp;")` — Converts ampersands (`&`) into a safe HTML representation.
+- `.replace(/</g, "&lt;")` — Converts the less-than symbol (`<`) into a safe HTML representation.
+- `.replace(/>/g, "&gt;")` — Converts the greater-than symbol (`>`) into a safe HTML representation.
 
-.replace(/\{bc\}/g, ": ") — Replaces {bc} with a colon and a space.
+### Examples
 
-.replace(/\{[^}]*\}/g, "") — Removes special codes inside curly brackets.
+| Original API Text | Cleaned Text |
+|---|---|
+| `{bc}superior to (as in rank, quality, or degree)` | `: superior to (as in rank, quality, or degree)` |
+| `A sergeant is {wi}above{/wi} a corporal.` | `A sergeant is above a corporal.` |
+| `{wi}above{/wi} suspicion` | `above suspicion` |
+| `not {wi}above{/wi} taking undue credit` | `not above taking undue credit` |
 
-.replace(/&/g, "&amp;") — Converts ampersands (&) into a safe HTML representation.
+**Result:** The function removes special formatting codes and handles certain HTML characters so the text can be displayed more safely in our dictionary web application.
 
-.replace(/</g, "&lt;") — Converts the less-than symbol (<) into a safe HTML representation.
-
-.replace(/>/g, "&gt;") — Converts the greater-than symbol (>) into a safe HTML representation.
-
-Examples
-
-{bc}superior to (as in rank, quality, or degree)  : superior to (as in rank, quality, or degree)
-
-A sergeant is {wi}above{/wi} a corporal.            A sergeant is above a corporal.
-
-{wi}above{/wi} suspicion                            above suspicion
-
-not {wi}above{/wi} taking undue credit              not above taking undue credit
-
-Result: The function removes special formatting codes and handles certain HTML characters so the text can be displayed more safely in our dictionary web application.
 ## 2. `getExamples(entry, limit = 2)`
 
 ### Purpose
