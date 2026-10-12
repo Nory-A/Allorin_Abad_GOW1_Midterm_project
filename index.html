@@ -456,10 +456,11 @@
 
             .navbar.open .dictionary-button {
                 display: flex;                  /* show CTA in mobile menu */
-                justify-content: center;        /* center the button text */
+                justify-content: center;         /* center the button text */
                 order: 4;                       /* place under nav links */
-                margin: 12px 0 8px;             /* top and bottom spacing */
-                width: 100%;                    /* full width button */
+                margin: 12px auto 8px;          /* center with auto margins */
+                width: auto;                    /* match phone-sized CTA */
+                max-width: 90%;                 /* keep it compact on tablets */
             }
 
             .home-section {
@@ -496,7 +497,7 @@
 
             .navbar.open .dictionary-button {
                 display: flex;                  /* show CTA in mobile menu */
-                justify-content: center;        /* center the button text */
+                justify-content: center;         /* center the button text */
                 order: 4;                       /* place under nav links */
                 margin: 12px auto 8px;          /* center with auto margin */
                 width: auto;                    /* fit content width */
