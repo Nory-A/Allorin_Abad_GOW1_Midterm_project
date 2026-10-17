@@ -37,7 +37,7 @@ function clean(text) {
         .replace(/>/g, "&gt;");
 }
 
-function getExamples(entry, limit = 2) {
+function getExamples(entry, limit = 3) {
     const examples = [];
     try {
         for (const sseq of entry.def || []) {

@@ -327,6 +327,34 @@ function getExamples(entry, limit = 2) {
 
 ### Example from the Merriam-Webster API
 
+The API uses `"vis"` (verbal illustrations) to identify example sentences.
+
+The following are four example sentences returned in the API data:
+
+| No. | Original API example |
+|---|---|
+| 1 | `A sergeant is {wi}above{/wi} a corporal.` |
+| 2 | `{wi}above{/wi} suspicion` |
+| 3 | `puts his child's needs {wi}above{/wi} his own needs` |
+| 4 | `not {wi}above{/wi} taking undue credit` |
+
+### How It Works
+
+1. The function loops through the API data to find entries marked `"vis"`.
+2. `clean(v.t)` removes special formatting codes from each sentence.
+3. `examples.push()` adds each cleaned sentence to the list.
+4. `examples.slice(0, limit)` returns only the first two examples by default.
+
+### Expected Output
+
+```javascript
+[
+    "A sergeant is above a corporal.",
+    "above suspicion"
+]
+```
+
+**Result:** Although the API provides four example sentences, the function returns only the first two because `limit` is set to `2`.
 
 ## 3. `getAudioUrl(entry)`
 
